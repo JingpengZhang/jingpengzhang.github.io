@@ -28,5 +28,6 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
     "@types/markdown-it": "^14.1.2"
-  }
+  },
+  "packageManager": "pnpm@9.15.4"
 }
