@@ -1,0 +1,25 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  tag: CollectionEntry<"tags"> | string;
+}
+
+const { tag } = Astro.props;
+
+const containerClass =
+  "w-fit bg-gradient-to-br from-indigo-700 to-indigo-800 rounded-full h-6 flex items-center px-2 italic text-indigo-100 text-sm";
+---
+
+{
+  tag instanceof Object ? (
+    <a href={`/tags/${tag.data.slug}`} class={`${containerClass}`}>
+      <span>#{tag.data.name}</span>
+    </a>
+  ) : (
+    <div class={`${containerClass}`}>
+      <span>#{tag}</span>
+    </div>
+  )
+}

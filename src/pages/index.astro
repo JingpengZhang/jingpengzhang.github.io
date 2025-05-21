@@ -1,11 +1,20 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import HeaderCard from "../components/index/HeaderCard.astro";
+import MyPowers from "../components/index/MyPowers.astro";
+import MyPosts from "../components/index/MyPosts.astro";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+  <HeaderCard />
+  <section class="w-[1000px] mx-auto flex gap-10 mt-10">
+    <div class="grow flex flex-col gap-7">
+      <MyPowers />
+      <MyPosts />
+    </div>
+    <div class="w-80 shrink-0"></div>
+  </section>
 </Layout>

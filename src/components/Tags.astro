@@ -1,0 +1,18 @@
+---
+import type { CollectionEntry } from "astro:content";
+interface Props {
+  tags: CollectionEntry<"tags">['data'][];
+}
+
+const { tags } = Astro.props;
+---
+
+<ul class="flex flex-wrap text-xs gap-2 mt-6">
+  {
+    tags.map((tag) => (
+      <li class="bg-gradient-to-br from-indigo-700 to-indigo-800 rounded-full h-6 flex items-center px-2 italic text-indigo-100">
+        <span>#{tag.name}</span>
+      </li>
+    ))
+  }
+</ul>

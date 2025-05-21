@@ -1,0 +1,45 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@font-face {
+  font-family: "MapleMonoNFCN";
+  src: url("/fonts/maple-mono-nf-cn/MapleMono-NF-CN-Regular.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MapleMonoNFCN";
+  src: url("/fonts/maple-mono-nf-cn/MapleMono-NF-CN-Bold.ttf")
+    format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-maple-mono-nf-cn: "MapleMonoNFCN";
+  --color-white-opacity-20: rgba(255, 255, 255, 0.2);
+
+  --animate-rainbow: rainbow 5s linear infinite;
+
+  @keyframes rainbow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+}
+
+@layer base {
+  body {
+    @apply select-none font-maple-mono-nf-cn bg-gradient-to-r from-gray-900 to-indigo-950 text-white;
+  }
+}

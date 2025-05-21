@@ -1,0 +1,31 @@
+---
+import { Image } from "astro:assets";
+import Avatar from "../../assets/images/avatar.png";
+import TypeIt from "typeit-react";
+---
+
+<section
+  class="w-[1000px] mx-auto flex rounded-lg overflow-hidden bg-gray-800 shadow p-5"
+>
+  <div class="rounded-lg overflow-hidden">
+    <Image src={Avatar} alt="Astro logo" class="h-[120px] w-fit" />
+  </div>
+  <div class="ml-5">
+    <p class="text-2xl">👋 Hello !!!</p>
+
+    <p class="mt-6 text-lg text-indigo-100 select-text">
+      Code never lies, comments sometimes do.
+    </p>
+
+    <div class="select-text mt-2 text-sm text-indigo-100">
+      <TypeIt client:only>代码不会说谎，注释有时候会。</TypeIt>
+    </div>
+  </div>
+
+  <div class="flex justify-end grow items-center">
+    <button
+      class="mr-4 rounded-full bg-gradient-to-br from-indigo-500 text-sm to-indigo-700 px-4 h-10 cursor-pointer shadow"
+      >📃 {"About Me".toUpperCase()}</button
+    >
+  </div>
+</section>

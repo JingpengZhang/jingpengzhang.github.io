@@ -1,0 +1,112 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Back from "../../assets/svgs/Back.svg";
+import SvgPrev from "../../assets/svgs/SkipPrev.svg";
+import BackButton from "../../components/BackButton";
+import dayjs from "dayjs";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: {
+      slug: post.data.slug,
+    },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+
+// 最小的目录层级
+const minDepth = Math.min(...headings.map((head) => head.depth));
+
+const blogs = await getCollection("blog");
+const sortedBlogs = blogs.sort(
+  (a, b) =>
+    new Date(b.data.createdAt).getTime() - new Date(a.data.createdAt).getTime()
+);
+const index = sortedBlogs.findIndex((blog) => blog.id === post.id);
+const prev = index > 0 ? sortedBlogs[index - 1] : null;
+const next = index < sortedBlogs.length - 1 ? sortedBlogs[index + 1] : null;
+---
+
+<Layout>
+  <section class="w-[1200px] mx-auto bg-gray-800 rounded-lg shadow">
+    <div class="w-full flex p-8 gap-8">
+      <div class="grow">
+        <div class="">
+          <h1 class="text-3xl select-all">📰 {post.data.title}</h1>
+          <div class="text-gray-500 mt-4 text-sm flex items-center gap-10">
+            <p class="">
+              创建于 {dayjs(post.data.createdAt).format("YYYY-MM-DD HH:mm:ss")}
+            </p>
+            <p class="">
+              修改于 {dayjs(post.data.updatedAt).format("YYYY-MM-DD HH:mm:ss")}
+            </p>
+          </div>
+        </div>
+        <article class="grow prose prose-invert select-text max-w-none mt-8">
+          <Content />
+        </article>
+      </div>
+      <div class="w-72 shrink-0">
+        <div class="sticky top-24">
+          <div class="flex items-center justify-between gap-4">
+            <div class="grow flex flex-col gap-2 text-sm">
+              {
+                prev && (
+                  <a
+                    href={`/posts/${prev?.id}`}
+                    class="flex items-center bg-linear-to-r from-g ray-600 to-gray-800 h-9 rounded-md px-2 gap-1 hover:bg-indigo-500"
+                  >
+                    <SvgPrev width={20} height={20} class="rotate-90" />
+                    <p>{prev?.data.title}</p>
+                  </a>
+                )
+              }
+              {
+                next && (
+                  <a
+                    href={`/posts/${next?.id}`}
+                    class="flex items-center bg-linear-to-r from-g ray-600 to-gray-800 h-9 rounded-md px-2 gap-1 hover:bg-indigo-500"
+                  >
+                    <SvgPrev width={20} height={20} class="-rotate-90" />
+                    <p>{next?.data.title}</p>
+                  </a>
+                )
+              }
+            </div>
+            <div class="shrink-0">
+                <a href="/notes" class="hover:text-indigo-500 cursor-pointer">
+                  <Back width={24} height={24} />
+                </a>
+            </div>
+          </div>
+          <div class="mt-6">
+            <div><span>🧭 目录</span></div>
+            <ul class="text-sm gap-1 flex flex-col mt-3">
+              {
+                headings.map((head) => (
+                  <li
+                    style={{
+                      paddingLeft: `${(head.depth - minDepth) * 4}px`,
+                    }}
+                  >
+                    <a
+                      href={`#${head.slug}`}
+                      class="py-1 flex hover:text-indigo-400 rounded"
+                    >
+                      {head.text}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

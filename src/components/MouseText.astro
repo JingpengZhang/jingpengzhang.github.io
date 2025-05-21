@@ -1,0 +1,27 @@
+---
+
+---
+
+<div
+  id="mouse-text"
+  class="fixed pointer-events-none z-50 text-white text-xl"
+  style="top: 0; left: 0;"
+>
+  ✨
+</div>
+
+<script is:client="load">
+  // 页面加载后执行
+  window.addEventListener("mousemove", (e) => {
+    const el = document.getElementById("mouse-text");
+    if (el) {
+      el.style.transform = `translate(${e.clientX + 10}px, ${e.clientY + 10}px)`;
+    }
+  });
+</script>
+
+<style>
+  #mouse-text {
+    transition: transform 0.05s linear;
+  }
+</style>

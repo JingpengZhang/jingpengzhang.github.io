@@ -1,0 +1,23 @@
+---
+import Title from "../Title.astro";
+const powers: { icon: string; name: string }[] = [
+  { icon: "🚀", name: "JavaScript" },
+  { icon: "🐍", name: "Python" },
+  { icon: "🦀", name: "Rust" },
+  { icon: "🐘", name: "PHP" },
+];
+---
+
+<section class="w-full">
+  <Title title="我的技能 🪄" />
+  <ul class="flex gap-3 mt-4 w-full">
+    {
+      powers.map((power) => (
+        <li class="bg-gray-800 flex-1 shrink rounded-md shadow flex flex-col items-center justify-center py-3 hover:scale-105 transition-all">
+          <p class="text-xl">{power.icon}</p>
+          <p class="mt-1 text-sm">{power.name}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>

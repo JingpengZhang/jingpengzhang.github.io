@@ -1,22 +1,38 @@
+---
+import "../styles/global.css";
+import Navbar from "../components/Navbar.astro";
+import WebFooter from "../components/WebFooter.astro";
+import MouseText from "../components/MouseText.astro";
+import MouseEffect from "../components/MouseEffect";
+import Background from "../components/Background";
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro Basics</title>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <!-- <Background client:load /> -->
+    <!-- <MouseText /> -->
+    <MouseEffect client:load />
+    <Navbar />
+    <div class="mt-32 grow">
+      <slot />
+    </div>
+    <WebFooter />
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>

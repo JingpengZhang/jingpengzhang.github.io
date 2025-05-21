@@ -1,0 +1,81 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import Tag from "../components/Tag.astro";
+import Title from "../components/Title.astro";
+
+const posts = await getCollection("blog");
+
+const tags = await getCollection("tags");
+---
+
+<Layout>
+  <div
+    class="w-[1200px] mx-auto rounded-lg overflow-hidden shadow bg-gray-800 flex flex-col items-center justify-center h-36"
+  >
+    <h1 class="text-3xl font-bold">📚 我的笔记</h1>
+  </div>
+
+  <div class="flex w-[1200px] mx-auto gap-8 mt-8">
+    <div class="grow">
+      <ul class="gap-4">
+        {
+          posts.map((item) => (
+            <li class="group  hover:scale-105 transition-all mb-4 w-full">
+              <a
+                href={`/posts/${item.id}`}
+                class="flex items-center bg-gray-800 h-fit w-full rounded-lg overflow-hidden shadow"
+              >
+                <div class="shrink-0 aspect-video h-full bg-gray-600">
+                  {/* {item.featured_media_data && (
+                  <img
+                    src={item.featured_media_data.guid.rendered}
+                    class="h-full w-full object-cover"
+                    alt={"封面"}
+                  />
+                )} */}
+                </div>
+
+                <div class="p-4">
+                  <h2 class="text-lg font-bold line-clamp-2 transition-all">
+                    📰 {item.data.title}
+                  </h2>
+                  <p class="text-sm text-gray-400 mt-2 line-clamp-3">
+                    {item.data.excerpt}
+                  </p>
+
+                  <ul class="flex flex-wrap text-xs gap-2 mt-6">
+                    {item.data.tags.map((tag) => (
+                      <li>
+                        <Tag tag={tag} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="shrink-0 w-96">
+      <div class="mb-4 flex justify-end">
+        <Title title="标签 🏷️" />
+      </div>
+      <Card>
+        <div class="p-4">
+          <ul class="">
+            {
+              tags.map((tag) => (
+                <li class="">
+                  <Tag tag={tag} />
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </Card>
+    </div>
+  </div>
+</Layout>
