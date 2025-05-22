@@ -35,7 +35,7 @@ const next = index < sortedBlogs.length - 1 ? sortedBlogs[index + 1] : null;
 <Layout>
   <section class="w-[1200px] mx-auto bg-gray-800 rounded-lg shadow">
     <div class="w-full flex p-8 gap-8">
-      <div class="grow">
+      <div class="grow min-w-0">
         <div class="">
           <h1 class="text-3xl select-all">📰 {post.data.title}</h1>
           <div class="text-gray-500 mt-4 text-sm flex items-center gap-10">
@@ -52,7 +52,7 @@ const next = index < sortedBlogs.length - 1 ? sortedBlogs[index + 1] : null;
         </article>
       </div>
       <div class="w-72 shrink-0">
-        <div class="sticky top-24">
+        <div class="sticky top-24 left-0">
           <div class="flex items-center justify-between gap-4">
             <div class="grow flex flex-col gap-2 text-sm">
               {
