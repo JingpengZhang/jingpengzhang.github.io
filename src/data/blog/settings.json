@@ -3,6 +3,14 @@
     {
       "name": "NextJS",
       "slug": "nextjs"
+    },
+    {
+      "name": "JavaScript",
+      "slug": "javascript"
+    },
+    {
+      "name": "React",
+      "slug": "react"
     }
   ]
 }
