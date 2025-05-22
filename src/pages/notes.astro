@@ -5,7 +5,11 @@ import Card from "../components/Card.astro";
 import Tag from "../components/Tag.astro";
 import Title from "../components/Title.astro";
 
-const posts = await getCollection("blog");
+const postsResource = await getCollection("blog");
+const posts = postsResource.sort(
+  (a, b) =>
+    new Date(b.data.createdAt).getTime() - new Date(a.data.createdAt).getTime()
+);
 
 const tags = await getCollection("tags");
 ---
