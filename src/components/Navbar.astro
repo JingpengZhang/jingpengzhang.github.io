@@ -1,4 +1,7 @@
 ---
+import { getCollection } from "astro:content";
+import Search from "./Search";
+
 const navs = [
   {
     title: "🏠 首页",
@@ -28,6 +31,8 @@ const isActive = (route: string) => {
   }
   return false;
 };
+
+const posts = await getCollection("blog");
 ---
 
 <section
@@ -36,6 +41,7 @@ const isActive = (route: string) => {
   <div class="w-[1200px] mx-auto h-full flex justify-between">
     <div class="h-full flex items-center">👨‍💻 BitPeng</div>
     <div class="h-full flex items-center">
+      <Search posts={posts} client:load />
       <nav class="flex gap-5">
         {
           navs.map((nav) => (
