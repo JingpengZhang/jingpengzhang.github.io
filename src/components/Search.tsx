@@ -1,13 +1,23 @@
 import type { CollectionEntry } from "astro:content";
-import React from "react";
+import React, { useEffect } from "react";
 import SvgSearch from "../assets/svgs/PixelSearch.svg?react";
 import { useModal } from "../hooks/useModal";
 import SearchView from "./SearchView";
+import { useKeyPress } from "ahooks";
 
 const Search: React.FC<{
   posts: CollectionEntry<"blog">[];
 }> = ({ posts }) => {
-  const { show } = useModal(SearchView);
+  const { show, hide } = useModal(SearchView);
+
+  useKeyPress("meta.k", () => {
+    show({ posts });
+  });
+
+  useKeyPress("esc", () => {
+    hide();
+  });
+
   return (
     <button
       onClick={() => show({ posts })}

@@ -5,16 +5,23 @@ import { createRoot, type Root } from "react-dom/client";
 type ModalWrapperProps = {
   Component: React.ComponentType<any>;
   props: Record<string, any>;
-  onClose: () => void;
   onExited: () => void;
+  closeRef: { current: () => void };
 };
 
-const ModalWrapper = ({ Component, props, onExited }: ModalWrapperProps) => {
+const ModalWrapper = ({
+  Component,
+  props,
+  onExited,
+  closeRef,
+}: ModalWrapperProps) => {
   const [visible, setVisible] = useState(true);
 
   const handleClose = () => {
     setVisible(false);
   };
+
+  closeRef.current = handleClose;
 
   return (
     <AnimatePresence onExitComplete={onExited}>
@@ -47,12 +54,15 @@ export function useModal<T extends object>(
   let root: Root | null = null;
   let container: HTMLDivElement | null = null;
 
-  const handleUnmount = () => {
+  const closeRef = { current: () => {} };
+
+  const unmount = () => {
     if (root && container) {
       root.unmount();
       document.body.removeChild(container);
       root = null;
       container = null;
+      closeRef.current = () => {};
     }
   };
 
@@ -67,11 +77,15 @@ export function useModal<T extends object>(
       <ModalWrapper
         Component={Component}
         props={props}
-        onClose={handleUnmount}
-        onExited={handleUnmount}
+        onExited={unmount}
+        closeRef={closeRef}
       />
     );
   };
 
-  return { show };
+  const hide = () => {
+    closeRef.current();
+  };
+
+  return { show, hide };
 }
