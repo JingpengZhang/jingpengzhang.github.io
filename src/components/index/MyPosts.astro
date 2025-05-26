@@ -1,47 +1,40 @@
 ---
 import Title from "../Title.astro";
 import SvgArrow from "../../assets/svgs/Arrow.svg";
+import { getCollection } from "astro:content";
+import dayjs from "dayjs";
 
-const posts: { title: string; path: string; created: string; desc: string }[] =
-  [
-    {
-      title: "My First Post",
-      path: "posts/my-first-post",
-      created: "2021-01-01",
-      desc: "This is my first post",
-    },
-    {
-      title: "My First Post",
-      path: "posts/my-first-post",
-      created: "2021-01-01",
-      desc: "This is my first post",
-    },
-  ];
+// 取5条
+const postSource = await getCollection("blog");
+const posts = postSource.slice(0, 5);
 ---
 
 <section>
   <div class="flex justify-between">
     <Title title="我的笔记 📚" />
-    <button
+    <a
+      href="/notes"
       class="bg-gray-800 shadow rounded-lg text-xs h-7 flex items-center justify-center px-3 cursor-pointer hover:scale-105 transition-all"
       >查看更多
       <SvgArrow width={20} height={20} class="rotate-180" fill="currentColor" />
-    </button>
+    </a>
   </div>
   <ul class="mt-4 flex flex-col gap-4">
     {
       posts.map((post) => (
         <li>
           <a
-            href={post.path}
-            class="flex w-full bg-gray-800 rounded-md overflow-hidden h-20 group shadow"
+            href={`/posts/${post.id}`}
+            class="flex w-full bg-gray-800 rounded-md overflow-hidden group shadow p-4  hover:bg-indigo-900 transition-all"
           >
-            <div class="aspect-square shrink-0 bg-white-opacity-20" />
-
-            <div class="py-2 hover:bg-indigo-900 pl-3 grow transition-all">
-              <h3 class="text-sm font-bold">{post.title}</h3>
-              <p class="text-xs text-gray-400 mt-1 line-clamp-1">{post.desc}</p>
-              <p class="text-xs text-gray-500 mt-1">{post.created}</p>
+            <div class=" grow ">
+              <h3 class="text-sm font-bold">{post.data.title}</h3>
+              <p class="text-xs text-gray-400 mt-1 line-clamp-1">
+                {post.data.excerpt}
+              </p>
+              <p class="text-xs text-gray-500 mt-1">
+                {dayjs(post.data.createdAt).format("YYYY-MM-DD HH:mm:ss")}
+              </p>
             </div>
           </a>
         </li>
