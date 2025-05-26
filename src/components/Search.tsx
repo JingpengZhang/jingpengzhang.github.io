@@ -21,7 +21,7 @@ const Search: React.FC<{
   return (
     <button
       onClick={() => show({ posts })}
-      className="flex cursor-pointer items-center bg-gray-700 rounded-full mr-2 px-2 h-6"
+      className="hidden xl:flex cursor-pointer items-center bg-gray-700 rounded-full mr-2 px-2 h-6"
     >
       <SvgSearch width={12} height={12} className="mr-2" />
       <span className="text-sm text-gray-400">⌘K</span>

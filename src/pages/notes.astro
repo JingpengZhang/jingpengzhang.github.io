@@ -17,13 +17,13 @@ const tags = await getAllTags();
 
 <Layout>
   <div
-    class="w-[1200px] mx-auto rounded-lg overflow-hidden shadow bg-gray-800 flex flex-col items-center justify-center h-36"
+    class="layout rounded-lg overflow-hidden shadow bg-gray-800 flex flex-col items-center justify-center h-36"
   >
-    <h1 class="text-3xl font-bold">📚 我的笔记</h1>
+    <h1 class="text-3xl font-bold">📚 笔记</h1>
   </div>
 
-  <div class="flex w-[1200px] mx-auto gap-8 mt-8">
-    <div class="grow">
+  <div class="flex layout flex-col-reverse xl:flex-row gap-8 mt-8">
+    <div class="grow pb-20 xl:pb-56">
       <ul class="gap-4">
         {
           posts.map((item) => (

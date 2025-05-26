@@ -10,11 +10,11 @@ import MyPosts from "../components/index/MyPosts.astro";
 
 <Layout>
   <HeaderCard />
-  <section class="w-[1000px] mx-auto flex gap-10 mt-10">
+  <section class="layout flex flex-col xl:flex-row gap-10 mt-10">
     <div class="grow flex flex-col gap-7">
       <MyPowers />
       <MyPosts />
     </div>
-    <div class="w-80 shrink-0"></div>
+    <div class="w-full xl:w-80 shrink-0"></div>
   </section>
 </Layout>
